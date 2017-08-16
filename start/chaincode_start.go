@@ -83,7 +83,8 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
     }
 
     key = args[0]
-    valAsbytes, err := stub.GetState(key)
+	valAsbytes, err := stub.GetState(key)
+	fmt.Println("GetState " + []byte(valAsbytes))
     if err != nil {
         jsonResp = "{\"Error\":\"Failed to get state for " + key + "\"}"
         return nil, errors.New(jsonResp)
@@ -103,6 +104,7 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 
 	key = args[0]                            //rename for fun
 	value = args[1]
+	fmt.Println("PutState " + []byte(value))
 	err = stub.PutState(key, []byte(value))  //write the variable into the chaincode state
 	if err != nil {
 		return nil, err
